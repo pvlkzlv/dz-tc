@@ -1,26 +1,13 @@
 package com.example.dztc.api;
 
-import com.example.dztc.api.models.User;
-import com.example.dztc.api.spec.Specifications;
-import io.restassured.RestAssured;
-import org.apache.http.HttpStatus;
+import com.example.dztc.api.requests.checked.CheckedProject;
 import org.testng.annotations.Test;
 
 public class BuildConfigurationTest extends BaseApiTest {
 
     @Test
     public void buildConfigurationTest() {
-        var user = User.builder().username("admin").password("admin").build();
-
-        var token = RestAssured
-            .given()
-            .spec(Specifications.getSpec().authSpec(user))
-            .get("authenticationTest.html?csrf")
-            .then()
-            .assertThat()
-            .statusCode(HttpStatus.SC_OK)
-            .extract()
-            .asString();
-        System.out.println(token);
+        var project = new CheckedProject(testData.getUser()).create(testData.getProject());
+        softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
     }
 }

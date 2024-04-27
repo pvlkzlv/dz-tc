@@ -22,6 +22,8 @@ public class Specifications {
         var requestBuilder = new RequestSpecBuilder();
         requestBuilder.addFilter(new RequestLoggingFilter());
         requestBuilder.addFilter(new ResponseLoggingFilter());
+        requestBuilder.setContentType(ContentType.JSON);
+        requestBuilder.setAccept(ContentType.JSON);
         return requestBuilder;
     }
 
