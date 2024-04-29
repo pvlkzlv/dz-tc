@@ -1,5 +1,7 @@
 package com.example.dztc.api.models;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private String username;
-    private String password;
-    private String email;
-    private Roles roles;
+public class Roles {
+    private List<Role> role;
 }

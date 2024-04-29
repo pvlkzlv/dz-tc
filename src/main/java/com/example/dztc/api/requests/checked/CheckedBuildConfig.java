@@ -1,39 +1,32 @@
 package com.example.dztc.api.requests.checked;
 
-import com.example.dztc.api.models.Project;
+import com.example.dztc.api.models.BuildType;
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
-import com.example.dztc.api.requests.unchecked.UncheckedProject;
+import com.example.dztc.api.requests.unchecked.UncheckedBuildConfig;
+import com.example.dztc.api.requests.unchecked.UncheckedUser;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
-public class CheckedProject extends Request implements CrudInterface {
-
-
-    public CheckedProject(RequestSpecification spec) {
+public class CheckedBuildConfig extends Request implements CrudInterface {
+    public CheckedBuildConfig(RequestSpecification spec) {
         super(spec);
     }
 
     @Override
-    public Project create(Object obj) {
-        return new UncheckedProject(spec)
+    public BuildType create(Object obj) {
+        return new UncheckedBuildConfig(spec)
             .create(obj)
             .then()
             .assertThat()
             .statusCode(HttpStatus.SC_OK)
             .extract()
-            .as(Project.class);
+            .as(BuildType.class);
     }
 
     @Override
     public Object get(String id) {
-        return new UncheckedProject(spec)
-            .get(id)
-            .then()
-            .assertThat()
-            .statusCode(HttpStatus.SC_OK)
-            .extract()
-            .as(Project.class);
+        return null;
     }
 
     @Override
@@ -43,12 +36,12 @@ public class CheckedProject extends Request implements CrudInterface {
 
     @Override
     public Object delete(String id) {
-        return new UncheckedProject(spec)
+        return new UncheckedBuildConfig(spec)
             .delete(id)
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_OK)
+            .statusCode(HttpStatus.SC_NO_CONTENT)
             .extract()
-            .asString();
+            .as(BuildType.class);
     }
 }

@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private String username;
-    private String password;
-    private String email;
-    private Roles roles;
+public class BuildType {
+    private String id;
+    private NewProjectDescription project;
+    private String name;
 }
