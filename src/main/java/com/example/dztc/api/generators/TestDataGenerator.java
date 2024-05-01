@@ -1,6 +1,6 @@
 package com.example.dztc.api.generators;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import com.example.dztc.api.models.BuildType;
 import com.example.dztc.api.models.NewProjectDescription;
@@ -16,8 +16,10 @@ public class TestDataGenerator {
             .username(RandomData.getString())
             .password(RandomData.getString())
             .email(RandomData.getString() + "@gmail.com")
-            .roles(
-                Roles.builder().role(Arrays.asList(Role.builder().roleId("SYSTEM_ADMIN").scope("g").build())).build())
+            .roles(Roles
+                       .builder()
+                       .role(Collections.singletonList(Role.builder().roleId("SYSTEM_ADMIN").scope("g").build()))
+                       .build())
             .build();
         var project = NewProjectDescription
             .builder()
@@ -36,6 +38,9 @@ public class TestDataGenerator {
     }
 
     public static Roles generateRoles(com.example.dztc.api.enums.Role role, String scope) {
-        return Roles.builder().role(Arrays.asList(Role.builder().roleId(role.getText()).scope(scope).build())).build();
+        return Roles
+            .builder()
+            .role(Collections.singletonList(Role.builder().roleId(role.getText()).scope(scope).build()))
+            .build();
     }
 }

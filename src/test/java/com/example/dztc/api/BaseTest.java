@@ -1,10 +1,11 @@
 package com.example.dztc.api;
 
 import org.assertj.core.api.SoftAssertions;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
+
     protected SoftAssertions softy;
 
     @BeforeMethod

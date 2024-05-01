@@ -2,7 +2,6 @@ package com.example.dztc.api.spec;
 
 import com.example.dztc.api.config.Config;
 import com.example.dztc.api.models.User;
-import io.restassured.authentication.AuthenticationScheme;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;

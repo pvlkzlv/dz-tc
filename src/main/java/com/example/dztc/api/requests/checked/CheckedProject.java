@@ -9,7 +9,6 @@ import org.apache.http.HttpStatus;
 
 public class CheckedProject extends Request implements CrudInterface {
 
-
     public CheckedProject(RequestSpecification spec) {
         super(spec);
     }

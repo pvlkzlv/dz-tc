@@ -8,9 +8,9 @@ import lombok.Getter;
 
 @Getter
 public class CheckedRequests {
-    private CheckedUser userRequest;
-    private CheckedProject projectRequest;
-    private CheckedBuildConfig buildConfigRequest;
+    private final CheckedUser userRequest;
+    private final CheckedProject projectRequest;
+    private final CheckedBuildConfig buildConfigRequest;
 
     public CheckedRequests(RequestSpecification spec) {
         this.userRequest = new CheckedUser(spec);

@@ -4,7 +4,6 @@ import com.example.dztc.api.models.BuildType;
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
 import com.example.dztc.api.requests.unchecked.UncheckedBuildConfig;
-import com.example.dztc.api.requests.unchecked.UncheckedUser;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 

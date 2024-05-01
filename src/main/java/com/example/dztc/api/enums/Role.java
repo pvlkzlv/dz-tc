@@ -7,13 +7,13 @@ public enum Role {
     PROJECT_VIEWER("PROJECT_VIEWER"),
     AGENT_MANAGER("AGENT_MANAGER");
 
-    public String getText() {
-        return text;
-    }
-
     private String text;
 
     Role(String text) {
         this.text = text;
+    }
+
+    public String getText() {
+        return text;
     }
 }

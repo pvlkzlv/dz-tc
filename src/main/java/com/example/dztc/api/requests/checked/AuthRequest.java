@@ -8,6 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
 public class AuthRequest extends Request {
+
     private User requestSpecification;
 
     public AuthRequest(RequestSpecification spec) {

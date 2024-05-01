@@ -19,6 +19,10 @@ public class Config {
         return (config != null) ? config : new Config();
     }
 
+    public static String getProperty(String key) {
+        return getConfig().properties.getProperty(key);
+    }
+
     public void loadProperties(String fileName) {
         try (InputStream stream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
             if (stream == null) {
@@ -29,9 +33,5 @@ public class Config {
             System.err.println("Error during file reading " + fileName);
             throw new RuntimeException(e);
         }
-    }
-
-    public static String getProperty(String key) {
-        return getConfig().properties.getProperty(key);
     }
 }

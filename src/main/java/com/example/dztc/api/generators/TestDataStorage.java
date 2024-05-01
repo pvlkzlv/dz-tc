@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestDataStorage {
     private static TestDataStorage testDataStorage;
-    private List<TestData> testDataList;
+    private final List<TestData> testDataList;
 
     private TestDataStorage() {
         this.testDataList = new ArrayList<>();

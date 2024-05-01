@@ -6,7 +6,6 @@ import com.example.dztc.api.models.User;
 import com.example.dztc.api.requests.unchecked.UncheckedProject;
 import com.example.dztc.api.requests.unchecked.UncheckedUser;
 import com.example.dztc.api.spec.Specifications;
-import io.restassured.specification.RequestSpecification;
 import lombok.Builder;
 import lombok.Data;
 

@@ -2,13 +2,10 @@ package com.example.dztc.api;
 
 import com.example.dztc.api.enums.Role;
 import com.example.dztc.api.generators.TestDataGenerator;
-import com.example.dztc.api.requests.CheckedRequests;
 import com.example.dztc.api.requests.UncheckedRequests;
 import com.example.dztc.api.requests.checked.CheckedBuildConfig;
 import com.example.dztc.api.requests.checked.CheckedProject;
-import com.example.dztc.api.requests.checked.CheckedUser;
 import com.example.dztc.api.requests.unchecked.UncheckedBuildConfig;
-import com.example.dztc.api.requests.unchecked.UncheckedProject;
 import com.example.dztc.api.spec.Specifications;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
@@ -28,11 +25,14 @@ public class RolesTest extends BaseApiTest {
             .statusCode(HttpStatus.SC_UNAUTHORIZED)
             .body(Matchers.containsString("Authentication required"));
 
-        uncheckedWithSuperUser.getProjectRequest()
-                              .get(testData.getProject().getId())
-                              .then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND)
-                              .body(Matchers.containsString("No project found by locator" +
-                                                            " 'count:1,id:" + testData.getProject().getId() + "'"));
+        uncheckedWithSuperUser
+            .getProjectRequest()
+            .get(testData.getProject().getId())
+            .then()
+            .assertThat()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+            .body(Matchers.containsString(
+                "No project found by locator" + " 'count:1,id:" + testData.getProject().getId() + "'"));
     }
 
     @Test
@@ -74,19 +74,22 @@ public class RolesTest extends BaseApiTest {
         checkedWithSuperUser.getProjectRequest().create(firstTestData.getProject());
         checkedWithSuperUser.getProjectRequest().create(secondTestData.getProject());
 
-        firstTestData.getUser().setRoles(TestDataGenerator.
-                                             generateRoles(Role.PROJECT_ADMIN, "p:" + firstTestData.getProject().getId()));
+        firstTestData
+            .getUser()
+            .setRoles(TestDataGenerator.generateRoles(Role.PROJECT_ADMIN, "p:" + firstTestData.getProject().getId()));
 
         checkedWithSuperUser.getUserRequest().create(firstTestData.getUser());
 
-        secondTestData.getUser().setRoles(TestDataGenerator.
-                                              generateRoles(Role.PROJECT_ADMIN, "p:" + secondTestData.getProject().getId()));
+        secondTestData
+            .getUser()
+            .setRoles(TestDataGenerator.generateRoles(Role.PROJECT_ADMIN, "p:" + secondTestData.getProject().getId()));
 
-        checkedWithSuperUser.getUserRequest()
-                            .create(secondTestData.getUser());
+        checkedWithSuperUser.getUserRequest().create(secondTestData.getUser());
 
         new UncheckedBuildConfig(Specifications.getSpec().authSpec(secondTestData.getUser()))
             .create(firstTestData.getBuildType())
-            .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN);
+            .then()
+            .assertThat()
+            .statusCode(HttpStatus.SC_FORBIDDEN);
     }
 }
