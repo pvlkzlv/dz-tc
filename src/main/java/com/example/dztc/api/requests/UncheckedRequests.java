@@ -1,5 +1,6 @@
 package com.example.dztc.api.requests;
 
+import com.example.dztc.api.requests.unchecked.UncheckedAuthSettings;
 import com.example.dztc.api.requests.unchecked.UncheckedBuildConfig;
 import com.example.dztc.api.requests.unchecked.UncheckedProject;
 import com.example.dztc.api.requests.unchecked.UncheckedUser;
@@ -11,10 +12,12 @@ public class UncheckedRequests {
     private final UncheckedUser userRequest;
     private final UncheckedProject projectRequest;
     private final UncheckedBuildConfig buildConfigRequest;
+    private final UncheckedAuthSettings uncheckedAuthSettings;
 
     public UncheckedRequests(RequestSpecification spec) {
         this.userRequest = new UncheckedUser(spec);
         this.projectRequest = new UncheckedProject(spec);
         this.buildConfigRequest = new UncheckedBuildConfig(spec);
+        this.uncheckedAuthSettings = new UncheckedAuthSettings(spec);
     }
 }

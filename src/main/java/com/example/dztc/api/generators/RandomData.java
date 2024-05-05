@@ -8,4 +8,8 @@ public class RandomData {
     public static String getString() {
         return "test" + RandomStringUtils.randomAlphabetic(LENGTH);
     }
+
+    public static String getString(int length) {
+        return "test" + RandomStringUtils.randomAlphabetic(length);
+    }
 }

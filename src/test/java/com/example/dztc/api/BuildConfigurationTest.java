@@ -5,7 +5,7 @@ import com.example.dztc.api.requests.checked.CheckedUser;
 import com.example.dztc.api.spec.Specifications;
 import org.testng.annotations.Test;
 
-public class BuildConfigurationTest extends BaseApiTest {
+public class BuildConfigurationTest extends SetupTest {
 
     @Test
     public void buildConfigurationTest() {
