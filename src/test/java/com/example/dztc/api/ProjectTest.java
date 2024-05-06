@@ -17,7 +17,7 @@ public class ProjectTest extends SetupTest {
     @Test
     public void userCanCreateProjectTest() {
         var testData = testDataStorage.addTestData();
-        new CheckedUser(Specifications.getSpec().superUserSpec()).create(testData.getUser());
+        checkedWithSuperUser.getUserRequest().create(testData.getUser());
         var project = new CheckedProject(Specifications.getSpec().authSpec(testData.getUser())).create(
             testData.getProject());
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
@@ -110,7 +110,7 @@ public class ProjectTest extends SetupTest {
     @Test
     public void userCantCreateProjectWithSameNameTest() {
         var testData = testDataStorage.addTestData();
-        new CheckedUser(Specifications.getSpec().superUserSpec()).create(testData.getUser());
+        checkedWithSuperUser.getUserRequest().create(testData.getUser());
         var project = new CheckedProject(Specifications.getSpec().authSpec(testData.getUser())).create(
             testData.getProject());
         new UncheckedProject(Specifications.getSpec().authSpec(testData.getUser()))
@@ -132,7 +132,7 @@ public class ProjectTest extends SetupTest {
     public void userCantCreateProjectWithWhitespacesAsNameTest(String projectName) {
         var testData = testDataStorage.addTestData();
         testData.getProject().setName(projectName);
-        new CheckedUser(Specifications.getSpec().superUserSpec()).create(testData.getUser());
+        checkedWithSuperUser.getUserRequest().create(testData.getUser());
         new UncheckedProject(Specifications.getSpec().authSpec(testData.getUser()))
             .create(testData.getProject())
             .then()
@@ -145,7 +145,7 @@ public class ProjectTest extends SetupTest {
     public void userCantCreateProjectWithoutNameTest() {
         var testData = testDataStorage.addTestData();
         testData.getProject().setName("");
-        new CheckedUser(Specifications.getSpec().superUserSpec()).create(testData.getUser());
+        checkedWithSuperUser.getUserRequest().create(testData.getUser());
         new UncheckedProject(Specifications.getSpec().authSpec(testData.getUser()))
             .create(testData.getProject())
             .then()
