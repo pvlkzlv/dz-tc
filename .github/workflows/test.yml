@@ -38,13 +38,6 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
 
-      - name: Wait for Selenoid to start
-        run: |
-          while ! curl -s http://${{ env.HOST }}:4444/status | grep -q 'total'; do
-            echo "Waiting for Selenoid to start..."
-            sleep 5
-          done
-
       - name: Run TeamCity server
         run: |
           docker run -u 0 -d --name teamcity-server \
@@ -65,10 +58,6 @@ jobs:
           docker run -e SERVER_URL=http://${{ env.HOST }}:8111 -u 0 -d --name teamcity-agent \
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
-
-      - name: Wait for TeamCity agent to connect
-        run: |
-          sleep 30  # Adjust as necessary to allow agent to connect
 
       - name: Set up TeamCity server and agent
         run: ./mvnw clean test -Dtest=TeamCitySetupTest#startUpTest
