@@ -30,6 +30,8 @@ jobs:
       - name: Pull Selenoid Chrome/Firefox/Opera
         run: |
           docker pull selenoid/vnc:chrome_91.0
+          docker pull selenoid/vnc:firefox_89.0
+          docker pull selenoid/vnc:opera_76.0
 
       - name: Run Selenoid
         run: |
@@ -49,9 +51,9 @@ jobs:
 
       - name: Wait for TeamCity server to start
         run: |
-          while ! curl -s http://${{ env.HOST }}:8111 | grep -q TeamCity; do
+          until curl -s http://${{ env.HOST }}:8111 | grep -q TeamCity; do
             echo "Waiting for TeamCity server to start..."
-            sleep 5
+            sleep 1
           done
 
       - name: Run TeamCity agent
@@ -60,7 +62,14 @@ jobs:
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
 
-      - name: Set up TeamCity server and agent
+      - name: Wait for TeamCity agent to connect
+        run: |
+          until curl -s http://${{ env.HOST }}:8111/agents.html | grep -q 'Agent'; do
+            echo "Waiting for TeamCity agent to connect..."
+            sleep 1
+          done
+
+      - name: Run TeamCity setup test
         run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
         working-directory: ${{ github.workspace }}
 
@@ -69,7 +78,7 @@ jobs:
           logs_dir=$(pwd)/tmp/teamcity_server/logs
           until grep -q 'Super user authentication token' "$logs_dir/teamcity-server.log"; do
             echo "Waiting for super user token in logs..."
-            sleep 5
+            sleep 1
           done
           echo "SUPER_USER_TOKEN=$(grep 'Super user authentication token' $logs_dir/teamcity-server.log | tail -n 1 | awk '{print $8}')" >> $GITHUB_ENV
 
