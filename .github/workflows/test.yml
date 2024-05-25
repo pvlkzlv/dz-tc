@@ -69,7 +69,7 @@ jobs:
         run: chmod +x mvnw
 
       - name: Set up TeamCity server and agent
-        run: ./mvnw clean test -Dtest=TeamCitySetupTest#startUpTest
+        run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
 
       - name: Set up superUserToken environment variable
         run: |
@@ -83,4 +83,4 @@ jobs:
         run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
 
       - name: Run tests
-        run: ./mvnw test -Dgroups=Regression
+        run: mvn test -Dgroups=Regression
