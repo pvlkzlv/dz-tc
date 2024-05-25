@@ -30,8 +30,6 @@ jobs:
       - name: Pull Selenoid Chrome/Firefox/Opera
         run: |
           docker pull selenoid/vnc:chrome_91.0
-          docker pull selenoid/vnc:firefox_89.0
-          docker pull selenoid/vnc:opera_76.0
 
       - name: Run Selenoid
         run: |
@@ -40,13 +38,6 @@ jobs:
           -v $(pwd)/config/:/etc/selenoid/:ro \
           -p 4444:4444 \
           aerokube/selenoid:latest-release
-
-      - name: Wait for Selenoid to start
-        run: |
-          while ! curl -s http://${{ env.HOST }}:4444/status | grep -q 'total'; do
-            echo "Waiting for Selenoid to start..."
-            sleep 5
-          done
 
       - name: Run TeamCity server
         run: |
