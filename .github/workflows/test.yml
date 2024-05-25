@@ -41,6 +41,13 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
 
+      - name: Wait for Selenoid to start
+        run: |
+          while ! curl -s http://${{ env.HOST }}:4444/status | grep -q 'total'; do
+            echo "Waiting for Selenoid to start..."
+            sleep 5
+          done
+
       - name: Run TeamCity server
         run: |
           docker run -u 0 -d --name teamcity-server \
@@ -62,22 +69,22 @@ jobs:
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
 
-      - name: Wait for TeamCity agent to connect
-        run: sleep 30  # Adjust as necessary to allow agent to connect
-
       - name: Set up TeamCity server and agent
         run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
+        working-directory: ${{ github.workspace }}
 
       - name: Set up superUserToken environment variable
         run: |
-          until grep -q 'Super user authentication token' "$(pwd)/tmp/teamcity_server/logs/teamcity-server.log"; do
+          logs_dir=$(pwd)/tmp/teamcity_server/logs
+          until grep -q 'Super user authentication token' "$logs_dir/teamcity-server.log"; do
             echo "Waiting for super user token in logs..."
             sleep 5
           done
-          echo "SUPER_USER_TOKEN=$(grep 'Super user authentication token' $(pwd)/tmp/teamcity_server/logs/teamcity-server.log | tail -n 1 | awk '{print $8}')" >> $GITHUB_ENV
+          echo "SUPER_USER_TOKEN=$(grep 'Super user authentication token' $logs_dir/teamcity-server.log | tail -n 1 | awk '{print $8}')" >> $GITHUB_ENV
 
       - name: Set up superUserToken config property
         run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
 
       - name: Run tests
         run: mvn test -Dgroups=Regression
+        working-directory: ${{ github.workspace }}
