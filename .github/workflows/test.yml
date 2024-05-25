@@ -30,8 +30,6 @@ jobs:
       - name: Pull Selenoid Chrome/Firefox/Opera
         run: |
           docker pull selenoid/vnc:chrome_91.0
-          docker pull selenoid/vnc:firefox_89.0
-          docker pull selenoid/vnc:opera_76.0
 
       - name: Run Selenoid
         run: |
@@ -61,13 +59,6 @@ jobs:
           docker run -e SERVER_URL=http://${{ env.HOST }}:8111 -u 0 -d --name teamcity-agent \
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
-
-      - name: Wait for TeamCity agent to connect
-        run: |
-          until curl -s http://${{ env.HOST }}:8111/agents.html | grep -q 'Agent'; do
-            echo "Waiting for TeamCity agent to connect..."
-            sleep 1
-          done
 
       - name: Run TeamCity setup test
         run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
