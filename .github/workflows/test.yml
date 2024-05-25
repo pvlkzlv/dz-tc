@@ -34,7 +34,7 @@ jobs:
         run: mkdir -p config
 
       - name: Copy Browsers Config
-        run: cp config/browsers.json config/browsers.json
+        run: cp config/browsers.json config/
 
       - name: Print config.properties
         run: cat src/main/resources/config.properties
