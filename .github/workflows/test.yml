@@ -38,13 +38,6 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
 
-      - name: Wait for Selenoid to start
-        run: |
-          while ! curl -s http://${{ env.HOST }}:4444/status | grep -q 'total'; do
-            echo "Waiting for Selenoid to start..."
-            sleep 5
-          done
-
       - name: Run TeamCity server
         run: |
           docker run -u 0 -d --name teamcity-server \
