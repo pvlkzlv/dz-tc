@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class BuildConfigurationTest extends SetupTest {
 
-    @Test
+    @Test(groups = "Regression")
     public void userCanAddNewBuildConfigurationToProject() {
         var testData = testDataStorage.addTestData();
         var testData2 = testDataStorage.addTestData();
