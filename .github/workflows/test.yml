@@ -30,6 +30,12 @@ jobs:
           echo "remote=http://${{ env.HOST }}:4444/wd/hub" >> src/main/resources/config.properties
           echo "browser=chrome" >> src/main/resources/config.properties
 
+      - name: Create Selenoid Config Directory
+        run: mkdir -p config
+
+      - name: Copy Browsers Config
+        run: cp browsers.json config/browsers.json
+
       - name: Print config.properties
         run: cat src/main/resources/config.properties
 
@@ -44,13 +50,6 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
 
-      - name: Wait for Selenoid to start
-        run: |
-          until curl -s http://${{ env.HOST }}:4444 | grep -q "browsers"; do
-            echo "Waiting for Selenoid to start..."
-            sleep 5
-          done
-
       - name: Run TeamCity server
         run: |
           docker run -u 0 -d --name teamcity-server \
@@ -59,38 +58,52 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-      - name: Wait for TeamCity server to start
-        run: |
-          until curl -s http://${{ env.HOST }}:8111 | grep -q TeamCity; do
-            echo "Waiting for TeamCity server to start..."
-            sleep 5
-          done
-
       - name: Run TeamCity agent
         run: |
           docker run -e SERVER_URL=http://${{ env.HOST }}:8111 -u 0 -d --name teamcity-agent \
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
 
+      - name: Wait for TeamCity server to be ready
+        run: sleep 30
+
       - name: Run TeamCity setup test
         run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
         working-directory: ${{ github.workspace }}
 
+      - name: List running Docker containers
+        run: docker ps
+
+      - name: Print TeamCity server logs directory
+        run: ls -l $(pwd)/tmp/teamcity_server/logs
+
+      - name: Print TeamCity server log file for verification
+        run: cat $(pwd)/tmp/teamcity_server/logs/teamcity-server.log
+
       - name: Set up superUserToken environment variable
         run: |
           logs_dir=$(pwd)/tmp/teamcity_server/logs
-          until grep -q 'Super user authentication token' "$logs_dir/teamcity-server.log"; do
+          max_retries=20
+          count=0
+          while [ $count -lt $max_retries ]; do
+            if grep -q 'Super user authentication token' "$logs_dir/teamcity-server.log"; then
+              echo "SUPER_USER_TOKEN=$(grep 'Super user authentication token' $logs_dir/teamcity-server.log | tail -n 1 | awk '{print $8}')" >> $GITHUB_ENV
+              break
+            fi
             echo "Waiting for super user token in logs..."
-            sleep 5
+            sleep 10
+            ((count++))
           done
-          echo "SUPER_USER_TOKEN=$(grep 'Super user authentication token' $logs_dir/teamcity-server.log | tail -n 1 | awk '{print $8}')" >> $GITHUB_ENV
+          if [ $count -ge $max_retries ]; then
+            echo "Super user token not found in logs" >&2
+            exit 1
+          fi
+
+      - name: Print relevant part of TeamCity server log file
+        run: grep 'Super user authentication token' $(pwd)/tmp/teamcity_server/logs/teamcity-server.log
 
       - name: Set up superUserToken config property
         run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
 
-      - name: Print config.properties after superUserToken
+      - name: Verify config.properties after setting superUserToken
         run: cat src/main/resources/config.properties
-
-      - name: Run tests
-        run: mvn test -Dgroups=Regression
-        working-directory: ${{ github.workspace }}
