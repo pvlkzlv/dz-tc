@@ -94,6 +94,9 @@ jobs:
             echo "SUPER_USER_TOKEN=${token}" >> $GITHUB_ENV
           fi
 
+      - name: Set up superUserToken config property
+        run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
+
       - name: Run API test suite
         run: mvn test -Dgroups=Api
         working-directory: ${{ github.workspace }}
