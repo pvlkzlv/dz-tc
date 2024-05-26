@@ -3,6 +3,8 @@
   <test name="API Test">
     <classes>
       <class name="com.example.dztc.api.BuildConfigurationTest"/>
+      <class name="com.example.dztc.api.ProjectTest"/>
+      <class name="com.example.dztc.api.RolesTest"/>
     </classes>
   </test>
 </suite>

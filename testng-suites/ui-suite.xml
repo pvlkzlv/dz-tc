@@ -3,6 +3,8 @@
   <test name="UI Test">
     <classes>
       <class name="com.example.dztc.ui.CreateBuildConfigurationTest"/>
+      <class name="com.example.dztc.ui.CreateNewProjectTest"/>
+
     </classes>
   </test>
 </suite>
