@@ -13,5 +13,9 @@ public class TeamCitySetupTest extends BaseUiTest {
             .setupTeamcityServer()
             .getHeader()
             .shouldHave(Condition.text("Create Administrator Account"));
+        var authSettings = checkedWithSuperUser.getAuthSettings().get("");
+        authSettings.setPerProjectPermissions(true);
+        checkedWithSuperUser.getAuthSettings().update(authSettings);
+
     }
 }
