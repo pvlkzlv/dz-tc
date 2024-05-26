@@ -6,13 +6,8 @@ public class SetupTest extends BaseApiTest {
 
     @Test
     public void setAuthSettings() {
-        var agents = checkedWithSuperUser.getCheckedAgents().get();
-
-        if (!agents.getAgent().isEmpty()) {
-            checkedWithSuperUser.getCheckedAgents().put(agents.getAgent().get(0).getId(), "true");
-        }
-        else {
-            System.out.println("Teamcity Agent not authorized");
-        }
+        var authSettings = checkedWithSuperUser.getAuthSettings().get("");
+        authSettings.setPerProjectPermissions(true);
+        checkedWithSuperUser.getAuthSettings().update(authSettings);
     }
 }
