@@ -12,7 +12,7 @@ import org.hamcrest.Matchers;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class ProjectTest extends SetupTest {
+public class ProjectTest extends BaseApiTest {
 
     @Test(groups = "Api")
     public void userCanCreateProjectTest() {

@@ -1,10 +1,10 @@
 package com.example.dztc.api;
 
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
 
 public class SetupTest extends BaseApiTest {
 
-    @BeforeSuite(alwaysRun = true)
+    @Test
     public void setAuthSettings() {
         System.out.println("Setting up auth settings and debug");
         var authSettings = checkedWithSuperUser.getAuthSettings().get("");

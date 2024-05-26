@@ -97,6 +97,10 @@ jobs:
       - name: Set up superUserToken config property
         run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
 
+      - name: Set permissions
+        run: mvn clean test -Dtest=SetupTest#setAuthSettings
+        working-directory: ${{ github.workspace }}
+
       - name: Tears
         run: sleep 60
 

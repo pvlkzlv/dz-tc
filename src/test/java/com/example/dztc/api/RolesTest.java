@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class RolesTest extends SetupTest {
+public class RolesTest extends BaseApiTest {
 
     @Test(groups = "Api")
     public void unauthorizedUserShouldNotHaveRightToCreateProject() {

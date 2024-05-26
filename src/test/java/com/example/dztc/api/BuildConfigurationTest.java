@@ -8,7 +8,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class BuildConfigurationTest extends SetupTest {
+public class BuildConfigurationTest extends BaseApiTest {
 
     @Test(groups = "Api")
     public void userCanAddNewBuildConfigurationToProject() {
