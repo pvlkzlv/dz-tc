@@ -98,7 +98,7 @@ jobs:
           jetbrains/teamcity-agent:2023.11.1
 
       - name: Not good not terrible
-        run: sleep 60
+        run: sleep 120
 
       - name: Set permissions
         run: mvn clean test -Dtest=SetupTest#setAuthSettings
