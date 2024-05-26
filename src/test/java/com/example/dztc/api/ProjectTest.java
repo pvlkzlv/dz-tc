@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 public class ProjectTest extends SetupTest {
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateProjectTest() {
         var testData = testDataStorage.addTestData();
         checkedWithSuperUser.getUserRequest().create(testData.getUser());
@@ -23,7 +23,7 @@ public class ProjectTest extends SetupTest {
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateProjectOnlyWithIDAndName() {
         var testData = testDataStorage.addTestData();
         testData.getProject().setParentProject(null);
@@ -34,7 +34,7 @@ public class ProjectTest extends SetupTest {
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectWithoutName() {
         var testData = testDataStorage.addTestData();
         testData.getProject().setName(null);
@@ -47,7 +47,7 @@ public class ProjectTest extends SetupTest {
             .body(Matchers.containsString("Project name cannot be empty."));
     }
 
-    @Test()
+    @Test(groups = "Api")
     public void userCanCreateProjectWithSpecialCharacterInName() {
         var testData = testDataStorage.addTestData();
         var projectName = RandomData.getStringWithSpecialSymbols();
@@ -59,7 +59,7 @@ public class ProjectTest extends SetupTest {
         softy.assertThat(project.getName()).isEqualTo(testData.getProject().getName());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectWithSpecialCharacterInID() {
         var testData = testDataStorage.addTestData();
         var projectName = RandomData.getStringWithSpecialSymbols();
@@ -77,7 +77,7 @@ public class ProjectTest extends SetupTest {
                 + "225 characters)."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateProjectWithinCharactersLimitTest() {
         var testData = testDataStorage.addTestData();
         var projectName = RandomData.getString(221);
@@ -88,7 +88,7 @@ public class ProjectTest extends SetupTest {
         checkedRequests.getProjectRequest().create(testData.getProject());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectOutOfCharactersLimitTest() {
         var testData = testDataStorage.addTestData();
         var projectName = RandomData.getString(222);
@@ -107,7 +107,7 @@ public class ProjectTest extends SetupTest {
                 + "225 characters)."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectWithSameNameTest() {
         var testData = testDataStorage.addTestData();
         checkedWithSuperUser.getUserRequest().create(testData.getUser());
@@ -141,7 +141,7 @@ public class ProjectTest extends SetupTest {
             .body(Matchers.containsString("Given project name is empty."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectWithoutNameTest() {
         var testData = testDataStorage.addTestData();
         testData.getProject().setName("");
@@ -154,7 +154,7 @@ public class ProjectTest extends SetupTest {
             .body(Matchers.containsString("Project name cannot be empty."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateProjectWithParentProject() {
         var testData = testDataStorage.addTestData();
         var testData2 = testDataStorage.addTestData();
@@ -165,7 +165,7 @@ public class ProjectTest extends SetupTest {
         checkedRequests.getProjectRequest().create(testData2.getProject());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateProjectWithParentProjectAndNotCopyAssociatedSettings() {
         var testData = testDataStorage.addTestData();
         var testData2 = testDataStorage.addTestData();
@@ -177,7 +177,7 @@ public class ProjectTest extends SetupTest {
         checkedRequests.getProjectRequest().create(testData2.getProject());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateProjectWithDeletedParentProject() {
         var testData = testDataStorage.addTestData();
         var testData2 = testDataStorage.addTestData();

@@ -14,7 +14,7 @@ public class CreateBuildConfigurationTest extends BaseUiTest {
         return format("%s_%s", projectId, configId);
     }
 
-    @Test
+    @Test(groups = "UI")
     public void authorizedUserToCreateBuildConfiguration() {
         var testData = testDataStorage.addTestData();
         loginAsUser(testData.getUser());
@@ -30,7 +30,7 @@ public class CreateBuildConfigurationTest extends BaseUiTest {
             .get(getBuildConfigId(testData.getProject().getId(), testData.getBuildType().getName()));
     }
 
-    @Test
+    @Test(groups = "UI")
     public void authorizedUserCanManuallyCreateBuildConfiguration() {
         var testData = testDataStorage.addTestData();
         loginAsUser(testData.getUser());

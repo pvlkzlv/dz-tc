@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
 
 public class BaseUiTest extends BaseTest {
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public void setupUiTests() {
         Configuration.browser = "chrome";
         Configuration.baseUrl = "http://" + Config.getProperty("host");
