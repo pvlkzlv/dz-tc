@@ -73,7 +73,7 @@ jobs:
           fi
 
       - name: Run TeamCity setup test
-        run: ./mvnw clean test -Dtest=TeamCitySetupTest#startUpTest
+        run: mvn clean test -Dtest=TeamCitySetupTest#startUpTest
         working-directory: ${{ github.workspace }}
 
       - name: Extract Super User Token from Docker logs
@@ -101,14 +101,14 @@ jobs:
         run: sleep 120
 
       - name: Set permissions
-        run: ./mvnw clean test -Dtest=SetupTest#setAuthSettings
+        run: mvn clean test -Dtest=SetupTest#setAuthSettings
         working-directory: ${{ github.workspace }}
 
       - name: Run API test suite
-        run: ./mvnw test -Dgroups=Api
+        run: mvn test -Dgroups=Api
         working-directory: ${{ github.workspace }}
 
       - name: Run UI test suite
-        run: ./mvnw test -Dgroups=UI
+        run: mvn test -Dgroups=UI
         working-directory: ${{ github.workspace }}
 
