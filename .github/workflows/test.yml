@@ -91,15 +91,6 @@ jobs:
       - name: Set up superUserToken config property
         run: echo "superUserToken=${{ env.SUPER_USER_TOKEN }}" >> src/main/resources/config.properties
 
-      - name: Run TeamCity agent
-        run: |
-          docker run -e SERVER_URL=http://${{ env.HOST }}:8111 -u 0 -d --name teamcity-agent \
-          -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
-          jetbrains/teamcity-agent:2023.11.1
-
-      - name: Not good not terrible
-        run: sleep 60
-
       - name: Set permissions
         run: mvn clean test -Dtest=SetupTest#setAuthSettings
         working-directory: ${{ github.workspace }}
