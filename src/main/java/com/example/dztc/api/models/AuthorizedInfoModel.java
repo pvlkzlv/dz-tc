@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Agent {
-    private String id;
-    private String name;
-    private boolean authorized;
+public class AuthorizedInfoModel {
+    private boolean status;
 }

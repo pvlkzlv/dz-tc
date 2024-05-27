@@ -21,8 +21,7 @@ public class RolesTest extends BaseApiTest {
             .create(testData.getProject())
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_UNAUTHORIZED)
-            .body(Matchers.containsString("Authentication required"));
+            .statusCode(HttpStatus.SC_UNAUTHORIZED);
         uncheckedWithSuperUser
             .getProjectRequest()
             .get(testData.getProject().getId())

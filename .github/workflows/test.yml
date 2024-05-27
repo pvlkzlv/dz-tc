@@ -97,8 +97,9 @@ jobs:
           -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
           jetbrains/teamcity-agent:2023.11.1
 
-      - name: Not good not terrible
-        run: sleep 60
+      - name: Authorize agent
+        run: mvn clean test -Dtest=SetupTest#authorizeAgent
+        working-directory: ${{ github.workspace }}
 
       - name: Set permissions
         run: mvn clean test -Dtest=SetupTest#setAuthSettings
@@ -111,4 +112,5 @@ jobs:
       - name: Run UI test suite
         run: mvn test -Dgroups=UI
         working-directory: ${{ github.workspace }}
+
 

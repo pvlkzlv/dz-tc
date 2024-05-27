@@ -2,6 +2,8 @@ package com.example.dztc.api.requests.unchecked;
 
 import static io.restassured.RestAssured.given;
 
+import com.example.dztc.api.models.Agent;
+import com.example.dztc.api.models.AuthorizedInfoModel;
 import com.example.dztc.api.requests.Request;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,15 +19,13 @@ public class UncheckedAgents extends Request {
     public Response get() {
         return given()
             .spec(spec)
-            .get(AGENTS_ENDPOINT + "?locator=authorized:any");
+            .get(AGENTS_ENDPOINT + "?locator=defaultFilter");
     }
 
-    public Response put(String id, String body) {
+    public Response put(Agent agent, AuthorizedInfoModel authorizedInfo) {
         return given()
             .spec(spec)
-            .body(body)
-            .contentType("text/plain")
-            .accept("text/plain")
-            .put(AGENTS_ENDPOINT + "/id:" + id + "/authorized");
+            .body(authorizedInfo)
+            .put(AGENTS_ENDPOINT + "/id:" + agent + "/authorizedInfo?");
     }
 }
