@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class CreateNewProjectTest extends BaseUiTest {
 
-    @Test
+    @Test(groups = "UI")
     public void authorizedUserShouldBeAbleToCreateNewProject() {
         var testData = testDataStorage.addTestData();
         var url = "https://github.com/AlexPshe/spring-core-for-qa";
@@ -30,7 +30,7 @@ public class CreateNewProjectTest extends BaseUiTest {
         checkedWithSuperUser.getProjectRequest().get(testData.getProject().getName());
     }
 
-    @Test
+    @Test(groups = "UI")
     public void userShouldNotBeAbleToCreateNewProjectWithInvalidUrl() {
         var testData = testDataStorage.addTestData();
         var url = "https://github.com/AlexPshe/spring-core-for-aq";
@@ -47,7 +47,7 @@ public class CreateNewProjectTest extends BaseUiTest {
             .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
-    @Test
+    @Test(groups = "UI")
     public void projectShouldNotBeCreatedWithEmptyUrl() {
         var testData = testDataStorage.addTestData();
         loginAsUser(testData.getUser());
@@ -64,7 +64,7 @@ public class CreateNewProjectTest extends BaseUiTest {
 
     }
 
-    @Test
+    @Test(groups = "UI")
     public void userShouldNotBeAbleToCreateNewProjectWithEmptyValues() {
         var testData = testDataStorage.addTestData();
         var url = "https://github.com/AlexPshe/spring-core-for-qa";

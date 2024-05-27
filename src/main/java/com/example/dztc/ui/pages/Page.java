@@ -15,7 +15,7 @@ import com.example.dztc.ui.Selectors;
 import com.example.dztc.ui.pages.elements.PageElement;
 
 public class Page {
-    private SelenideElement submitButton = element(Selectors.byType("submit"));
+    protected SelenideElement submitButton = element(Selectors.byType("submit"));
     private SelenideElement savingWaitingMarker = element(Selectors.byId("saving"));
     private SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader"));
 

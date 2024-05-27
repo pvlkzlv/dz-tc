@@ -8,10 +8,15 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class BuildConfigurationTest extends SetupTest {
+public class BuildConfigurationTest extends BaseApiTest {
 
-    @Test
+    @Test(groups = "Api")
     public void userCanAddNewBuildConfigurationToProject() {
+        System.out.println("Running test: userCanAddNewBuildConfigurationToProject");
+        if (testDataStorage == null) {
+            throw new IllegalStateException("testDataStorage is null in test method");
+        }
+
         var testData = testDataStorage.addTestData();
         var testData2 = testDataStorage.addTestData();
         testData2.getBuildType().setProject(testData.getProject());
@@ -28,7 +33,7 @@ public class BuildConfigurationTest extends SetupTest {
             .isEqualTo(testData2.getBuildType().getId());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateBuildConfigurationWithoutIdTest() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setId(null);
@@ -41,7 +46,7 @@ public class BuildConfigurationTest extends SetupTest {
             .isEqualTo(testData.getProject().getId() + "_" + testData.getBuildType().getName());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateBuildConfigurationWithoutName() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setName(null);
@@ -57,7 +62,7 @@ public class BuildConfigurationTest extends SetupTest {
             .body(Matchers.containsString("When creating a build type, non empty name should be provided."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateBuildConfigurationWithEmptyStringAsName() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setName("");
@@ -73,7 +78,7 @@ public class BuildConfigurationTest extends SetupTest {
             .body(Matchers.containsString("When creating a build type, non empty name should be provided."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateBuildConfigurationWithSpecificCharactersInName() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setName(RandomData.getStringWithSpecialSymbols());
@@ -86,7 +91,7 @@ public class BuildConfigurationTest extends SetupTest {
             .isEqualTo(testData.getBuildType().getName());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantCreateBuildConfigurationWithSpecificCharactersInId() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setId(RandomData.getStringWithSpecialSymbols());
@@ -104,7 +109,7 @@ public class BuildConfigurationTest extends SetupTest {
                 + "most " + "225 characters)."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateBuildConfigurationWithIdInCharacterLimit() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setId(RandomData.getString(221));
@@ -117,7 +122,7 @@ public class BuildConfigurationTest extends SetupTest {
             .isEqualTo(testData.getBuildType().getName());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCanCreateBuildConfigurationWithIdOutsideOfCharacterLimit() {
         var testData = testDataStorage.addTestData();
         testData.getBuildType().setId(RandomData.getString(222));
@@ -135,7 +140,7 @@ public class BuildConfigurationTest extends SetupTest {
                 + "most " + "225 characters)."));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void userCantAddBuildConfigurationToDeletedProject() {
         var testData = testDataStorage.addTestData();
         checkedWithSuperUser.getUserRequest().create(testData.getUser());

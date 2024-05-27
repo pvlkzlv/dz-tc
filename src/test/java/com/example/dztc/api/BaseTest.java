@@ -15,13 +15,13 @@ public class BaseTest {
     public UncheckedRequests uncheckedWithSuperUser = new UncheckedRequests(Specifications.getSpec().superUserSpec());
     protected SoftAssertions softy;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpTest() {
         softy = new SoftAssertions();
         testDataStorage = TestDataStorage.getStorage();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void afterTest() {
         softy.assertAll();
         testDataStorage.delete();

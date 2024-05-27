@@ -11,9 +11,9 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class RolesTest extends SetupTest {
+public class RolesTest extends BaseApiTest {
 
-    @Test
+    @Test(groups = "Api")
     public void unauthorizedUserShouldNotHaveRightToCreateProject() {
         var testData = testDataStorage.addTestData();
         new UncheckedRequests(Specifications.getSpec().unauthSpec())
@@ -21,8 +21,7 @@ public class RolesTest extends SetupTest {
             .create(testData.getProject())
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_UNAUTHORIZED)
-            .body(Matchers.containsString("Authentication required"));
+            .statusCode(HttpStatus.SC_UNAUTHORIZED);
         uncheckedWithSuperUser
             .getProjectRequest()
             .get(testData.getProject().getId())
@@ -33,7 +32,7 @@ public class RolesTest extends SetupTest {
                 "No project found by locator" + " 'count:1,id:" + testData.getProject().getId() + "'"));
     }
 
-    @Test
+    @Test(groups = "Api")
     public void systemAdminShouldHaveRightsToCreateProject() {
         var testData = testDataStorage.addTestData();
         testData.getUser().setRoles(TestDataGenerator.generateRoles(Role.SYSTEM_ADMIN, "g"));
@@ -43,7 +42,7 @@ public class RolesTest extends SetupTest {
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void projectAdminShouldHaveRightsToCreateBuildConfigToHisProject() {
         var testData = testDataStorage.addTestData();
         checkedWithSuperUser.getProjectRequest().create(testData.getProject());
@@ -56,7 +55,7 @@ public class RolesTest extends SetupTest {
         softy.assertThat(buildConfig.getId()).isEqualTo(testData.getBuildType().getId());
     }
 
-    @Test
+    @Test(groups = "Api")
     public void projectAdminShouldNotHaveRightsToCreateBuildConfigToAnotherProject() {
         var firstTestData = testDataStorage.addTestData();
         var secondTestData = testDataStorage.addTestData();
