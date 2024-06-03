@@ -15,13 +15,13 @@ public class UncheckedProject extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("CREATE Project request with body {0}")
+    @Step("CREATE Project request")
     public Response create(Object obj) {
         return RestAssured.given().spec(spec).body(obj).post(PROJECT_ENDPOINT);
     }
 
     @Override
-    @Step("GET Project request with id {0}")
+    @Step("GET Project request")
     public Response get(String id) {
         return RestAssured.given().spec(spec).get(PROJECT_ENDPOINT + "/id:" + id);
     }
@@ -32,7 +32,7 @@ public class UncheckedProject extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE Project request with id {0}")
+    @Step("DELETE Project request")
     public Response delete(String id) {
         return RestAssured.given().spec(spec).delete(PROJECT_ENDPOINT + "/id:" + id);
     }

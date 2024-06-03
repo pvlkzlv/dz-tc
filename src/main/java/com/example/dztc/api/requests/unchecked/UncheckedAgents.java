@@ -24,7 +24,7 @@ public class UncheckedAgents extends Request {
             .get(AGENTS_ENDPOINT + "?locator=defaultFilter");
     }
 
-    @Step("PUT Agents request with agent {0} and authorized info {1}")
+    @Step("PUT Agents request with agent")
     public Response put(Agent agent, AuthorizedInfoModel authorizedInfo) {
         return given()
             .spec(spec)

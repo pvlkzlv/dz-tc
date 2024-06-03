@@ -19,7 +19,7 @@ public class CheckedAuthSettings extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("GET Auth Setting request with id {0}")
+    @Step("GET Auth Setting request")
     public Configuration get(String id) {
         return new UncheckedAuthSettings(spec)
             .get(id)
@@ -31,7 +31,7 @@ public class CheckedAuthSettings extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("UPDATE Auth Setting request with body {0}")
+    @Step("UPDATE Auth Setting request")
     public Configuration update(Object obj) {
         return new UncheckedAuthSettings(spec)
             .update(obj)

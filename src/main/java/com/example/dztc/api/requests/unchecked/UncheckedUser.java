@@ -16,7 +16,7 @@ public class UncheckedUser extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("CREATE User request with body {0}")
+    @Step("CREATE User request")
     public Response create(Object obj) {
         return given().spec(spec).body(obj).post(USER_ENDPOINT);
     }
@@ -32,7 +32,7 @@ public class UncheckedUser extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE User request with id {0}")
+    @Step("DELETE User request")
     public Response delete(String id) {
         return given().spec(spec).delete(USER_ENDPOINT + "/username:" + id);
     }

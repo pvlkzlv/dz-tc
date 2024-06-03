@@ -16,13 +16,13 @@ public class UncheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("CREATE Build Configuration request with id {0}")
+    @Step("CREATE Build Configuration request")
     public Response create(Object obj) {
         return RestAssured.given().spec(spec).body(obj).post(BUILD_CONFIG_ENDPOINT);
     }
 
     @Override
-    @Step("GET Build Configuration request with id {0}")
+    @Step("GET Build Configuration request")
     public Response get(String id) {
         return RestAssured.given().spec(spec).get(BUILD_CONFIG_ENDPOINT + "/id:" + id);
     }
@@ -33,7 +33,7 @@ public class UncheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE Build Configuration request with id {0}")
+    @Step("DELETE Build Configuration request")
     public Response delete(String id) {
         return RestAssured.given().spec(spec).delete(BUILD_CONFIG_ENDPOINT + "/id:" + id);
     }

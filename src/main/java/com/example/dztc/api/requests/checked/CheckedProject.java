@@ -15,7 +15,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("CREATE Project request with body {0}")
+    @Step("CREATE Project request")
     public Project create(Object obj) {
         return new UncheckedProject(spec)
             .create(obj)
@@ -27,7 +27,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("GET Project request with id {0}")
+    @Step("GET Project request")
     public Object get(String id) {
         return new UncheckedProject(spec)
             .get(id)
@@ -44,7 +44,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE Project request with id {0}")
+    @Step("DELETE Project request")
     public String delete(String id) {
         return new UncheckedProject(spec)
             .delete(id)

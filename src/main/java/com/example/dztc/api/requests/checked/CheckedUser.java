@@ -37,7 +37,7 @@ public class CheckedUser extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE User request with id {0}")
+    @Step("DELETE User request")
     public String delete(String id) {
         return new UncheckedUser(spec)
             .delete(id)

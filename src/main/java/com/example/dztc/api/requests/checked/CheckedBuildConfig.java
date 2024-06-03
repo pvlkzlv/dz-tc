@@ -14,7 +14,7 @@ public class CheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("CREATE Build Configuration request with body {0}")
+    @Step("CREATE Build Configuration request")
     public BuildType create(Object obj) {
         return new UncheckedBuildConfig(spec)
             .create(obj)
@@ -26,7 +26,7 @@ public class CheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("GET Build Configuration request with id {0}")
+    @Step("GET Build Configuration request")
     public BuildType get(String id) {
         return new UncheckedBuildConfig(spec)
             .get(id)
@@ -43,7 +43,7 @@ public class CheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("DELETE Build Configuration request with id {0}")
+    @Step("DELETE Build Configuration request")
     public Object delete(String id) {
         return new UncheckedBuildConfig(spec)
             .delete(id)

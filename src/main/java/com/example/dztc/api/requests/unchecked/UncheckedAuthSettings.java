@@ -19,13 +19,13 @@ public class UncheckedAuthSettings extends Request implements CrudInterface {
     }
 
     @Override
-    @Step("GET Auth Setting request with id {0}")
+    @Step("GET Auth Setting request")
     public Response get(String id) {
         return RestAssured.given().spec(spec).get(AUTH_SETTINGS_ENDPOINT);
     }
 
     @Override
-    @Step("UPDATE Auth Setting request with body {0}")
+    @Step("UPDATE Auth Setting request")
     public Response update(Object obj) {
         return RestAssured.given().spec(spec).body(obj).put(AUTH_SETTINGS_ENDPOINT);
     }
