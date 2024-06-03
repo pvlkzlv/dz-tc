@@ -26,7 +26,7 @@ public class Page {
         waitUntilDataIsSaved();
     }
 
-    @Step("Wait until page is loaded")
+    @Step
     public void waitUntilPageIsLoaded() {
         pageWaitingMarker.shouldNotBe(visible, Duration.ofMinutes(1));
     }
