@@ -60,17 +60,13 @@ public class CreateNewProject extends Page {
 
     @Step
     public CreateNewProject verifyEmptyUrlErrorMessageIsDisplayed() {
-        urlErrorLabel
-            .shouldBe(Condition.visible)
-            .shouldBe(exactText("URL must not be empty"));
+        urlErrorLabel.shouldBe(Condition.visible).shouldBe(exactText("URL must not be empty"));
         return this;
     }
 
     @Step
     public CreateNewProject verifyEmptyProjectNameErrorIsDisplayed() {
-        projectNameErrorLabel
-            .shouldBe(Condition.visible)
-            .shouldBe(exactText("Project name must not be empty"));
+        projectNameErrorLabel.shouldBe(Condition.visible).shouldBe(exactText("Project name must not be empty"));
         return this;
     }
 
