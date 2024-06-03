@@ -98,7 +98,7 @@ jobs:
           jetbrains/teamcity-agent:2023.11.1
 
       - name: Wait for agent
-        run: sleep 30
+        run: sleep 31
 
       - name: Authorize agent
         run: mvn clean test -Dtest=SetupTest#authorizeAgent
