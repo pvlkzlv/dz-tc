@@ -10,6 +10,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.example.dztc.ui.Selectors;
 import com.example.dztc.ui.pages.Page;
+import io.qameta.allure.Step;
 
 public class CreateNewProject extends Page {
     private SelenideElement urlInput = element(Selectors.byId("url"));
@@ -22,18 +23,21 @@ public class CreateNewProject extends Page {
     private SelenideElement defaultBranchInput = element(Selectors.byId("branch"));
     private SelenideElement defaultBranchErrorLabel = element(Selectors.byId("error_branch"));
 
+    @Step
     public CreateNewProject open(String parentProjectId) {
         Selenide.open("/admin/createObjectMenu.html?projectId=" + parentProjectId + "&showMode=createProjectMenu");
         waitUntilPageIsLoaded();
         return this;
     }
 
+    @Step
     public CreateNewProject createProjectByUrl(String url) {
         urlInput.sendKeys(url);
         submit();
         return this;
     }
 
+    @Step
     public CreateNewProject setupProject(String projectName, String buildTypeName) {
         succesfullConnectionLabel.shouldBe(Condition.visible, Duration.ofSeconds(30));
         projectNameInput.shouldBe(Condition.interactable).clear();
@@ -44,6 +48,7 @@ public class CreateNewProject extends Page {
         return this;
     }
 
+    @Step
     public CreateNewProject verifyInvalidUrlErrorMessageIsDisplayed() {
         urlErrorLabel
             .shouldBe(Condition.visible)
@@ -53,6 +58,7 @@ public class CreateNewProject extends Page {
         return this;
     }
 
+    @Step
     public CreateNewProject verifyEmptyUrlErrorMessageIsDisplayed() {
         urlErrorLabel
             .shouldBe(Condition.visible)
@@ -60,7 +66,7 @@ public class CreateNewProject extends Page {
         return this;
     }
 
-
+    @Step
     public CreateNewProject verifyEmptyProjectNameErrorIsDisplayed() {
         projectNameErrorLabel
             .shouldBe(Condition.visible)
@@ -68,6 +74,7 @@ public class CreateNewProject extends Page {
         return this;
     }
 
+    @Step
     public CreateNewProject verifyEmptyBuildTypeNameErrorIsDisplayed() {
         buildTypeNameErrorLabel
             .shouldBe(Condition.visible)
@@ -75,11 +82,13 @@ public class CreateNewProject extends Page {
         return this;
     }
 
+    @Step
     public CreateNewProject clearDefaultBranchInput() {
         defaultBranchInput.shouldBe(Condition.interactable, Duration.ofSeconds(30)).clear();
         return this;
     }
 
+    @Step
     public void verifyEmptyBranchNameErrorIsDisplayed() {
         defaultBranchErrorLabel.shouldBe(exactText("Branch name must be specified"));
     }

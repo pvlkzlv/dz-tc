@@ -13,6 +13,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.selector.ByAttribute;
 import com.example.dztc.ui.Selectors;
 import com.example.dztc.ui.pages.Page;
+import io.qameta.allure.Step;
 
 public class CreateBuildConfigurationPage extends Page {
     private SelenideElement urlInput = element(Selectors.byId("url"));
@@ -23,6 +24,7 @@ public class CreateBuildConfigurationPage extends Page {
     private SelenideElement defaultBranchErrorLabel = element(Selectors.byId("error_branch"));
     private final SelenideElement manuallyOption = element(new ByAttribute("href", "#createManually"));
 
+    @Step
     public CreateBuildConfigurationPage open(String projectId) {
         Selenide.open("/admin/createObjectMenu.html?projectId="
                       + projectId + "&showMode=createBuildTypeMenu");
@@ -30,6 +32,7 @@ public class CreateBuildConfigurationPage extends Page {
         return this;
     }
 
+    @Step
     public CreateBuildConfigurationPage setUrl(String url) {
         urlInput.shouldBe(Condition.interactable, ofSeconds(30));
         urlInput.clear();
@@ -37,11 +40,13 @@ public class CreateBuildConfigurationPage extends Page {
         return this;
     }
 
+    @Step
     public CreateBuildConfigurationPage verifyEmptyUrlErrorMessageIsDisplayed() {
         urlErrorLabel.shouldBe(Condition.visible).shouldBe(exactText("URL must not be empty"));
         return this;
     }
 
+    @Step
     public CreateBuildConfigurationPage verifyEmptyBuildTypeNameErrorIsDisplayed() {
         buildTypeNameErrorLabel
             .shouldBe(Condition.visible)
@@ -49,12 +54,14 @@ public class CreateBuildConfigurationPage extends Page {
         return this;
     }
 
+    @Step
     public void setupBuildConfiguration(String buildConfigurationName) {
         buildConfigurationNameInput.shouldBe(interactable, ofSeconds(30)).clear();
         buildConfigurationNameInput.sendKeys(buildConfigurationName);
         submit();
     }
 
+    @Step
     public CreateBuildConfigurationPage clickOnManuallyButton() {
         manuallyOption.shouldBe(interactable, ofSeconds(20)).click();
         return this;

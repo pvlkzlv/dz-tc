@@ -5,6 +5,7 @@ import com.example.dztc.api.models.Agents;
 import com.example.dztc.api.models.AuthorizedInfoModel;
 import com.example.dztc.api.requests.Request;
 import com.example.dztc.api.requests.unchecked.UncheckedAgents;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
@@ -13,6 +14,7 @@ public class CheckedAgents extends Request {
         super(spec);
     }
 
+    @Step("GET Agents request")
     public Agents get() {
         return new UncheckedAgents(spec)
             .get()
@@ -22,6 +24,7 @@ public class CheckedAgents extends Request {
             .as(Agents.class);
     }
 
+    @Step("PUT Agents request")
     public String put(Agent agent, AuthorizedInfoModel authorizedInfoModel) {
         return new UncheckedAgents(spec)
             .put(agent, authorizedInfoModel)

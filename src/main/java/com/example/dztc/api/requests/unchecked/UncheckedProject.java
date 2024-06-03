@@ -2,6 +2,7 @@ package com.example.dztc.api.requests.unchecked;
 
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -14,11 +15,13 @@ public class UncheckedProject extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("CREATE Project request with body {0}")
     public Response create(Object obj) {
         return RestAssured.given().spec(spec).body(obj).post(PROJECT_ENDPOINT);
     }
 
     @Override
+    @Step("GET Project request with id {0}")
     public Response get(String id) {
         return RestAssured.given().spec(spec).get(PROJECT_ENDPOINT + "/id:" + id);
     }
@@ -29,6 +32,7 @@ public class UncheckedProject extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("DELETE Project request with id {0}")
     public Response delete(String id) {
         return RestAssured.given().spec(spec).delete(PROJECT_ENDPOINT + "/id:" + id);
     }

@@ -2,6 +2,7 @@ package com.example.dztc.api.requests.unchecked;
 
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -18,11 +19,13 @@ public class UncheckedAuthSettings extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("GET Auth Setting request with id {0}")
     public Response get(String id) {
         return RestAssured.given().spec(spec).get(AUTH_SETTINGS_ENDPOINT);
     }
 
     @Override
+    @Step("UPDATE Auth Setting request with body {0}")
     public Response update(Object obj) {
         return RestAssured.given().spec(spec).body(obj).put(AUTH_SETTINGS_ENDPOINT);
     }

@@ -8,6 +8,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.example.dztc.ui.Selectors;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 
@@ -18,11 +19,13 @@ public class StartUpPage extends Page {
     private SelenideElement acceptLicense = element(Selectors.byClass("rightLabel"));
     private SelenideElement header = element(Selectors.byId("header"));
 
+    @Step("Open start up page")
     public StartUpPage open() {
         Selenide.open("/");
         return this;
     }
 
+    @Step("Setup teamcity server")
     public StartUpPage setupTeamcityServer() {
         waitUntilPageIsLoaded();
         proceedButton.click();
