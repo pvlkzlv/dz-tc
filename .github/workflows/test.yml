@@ -131,6 +131,31 @@ jobs:
             swagger-coverage-report.html
             swagger-coverage-results.json
 
+      - name: Rename report page and move to folder
+        if: always()
+        run: |
+          mkdir coverage
+          mv swagger-coverage-report.html coverage/index.html
+
+      - name: Publish Swagger test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: coverage
+          destination_dir: coverage
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            target/surefire-reports/*.png
+            target/surefire-reports/*.html
+          retention-days: 5
+
       - name: Load test report history
         uses: actions/checkout@v3
         if: always()
