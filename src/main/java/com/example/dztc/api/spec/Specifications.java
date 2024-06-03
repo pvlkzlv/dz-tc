@@ -2,6 +2,7 @@ package com.example.dztc.api.spec;
 
 import com.example.dztc.api.config.Config;
 import com.example.dztc.api.models.User;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -23,6 +24,7 @@ public class Specifications {
         requestBuilder.setBaseUri("http://" + Config.getProperty("host"));
         requestBuilder.addFilter(new RequestLoggingFilter());
         requestBuilder.addFilter(new ResponseLoggingFilter());
+        requestBuilder.addFilter(new AllureRestAssured());
         requestBuilder.setContentType(ContentType.JSON);
         requestBuilder.setAccept(ContentType.JSON);
         return requestBuilder;
