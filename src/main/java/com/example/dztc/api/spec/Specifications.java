@@ -2,6 +2,7 @@ package com.example.dztc.api.spec;
 
 import com.example.dztc.api.config.Config;
 import com.example.dztc.api.models.User;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -22,6 +23,7 @@ public class Specifications {
     private RequestSpecBuilder reqBuilder() {
         var requestBuilder = new RequestSpecBuilder();
         requestBuilder.setBaseUri("http://" + Config.getProperty("host"));
+        requestBuilder.addFilter(new SwaggerCoverageRestAssured());
         requestBuilder.addFilter(new RequestLoggingFilter());
         requestBuilder.addFilter(new ResponseLoggingFilter());
         requestBuilder.addFilter(new AllureRestAssured());
