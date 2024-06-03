@@ -55,6 +55,10 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
+      - name: Wait for teamcity
+        run: sleep 40
+
+
       - name: Check TeamCity server status
         run: |
           retries=30
