@@ -104,10 +104,6 @@ jobs:
       - name: Wait for agent
         run: sleep 31
 
-      - name: Authorize agent
-        run: mvn clean test -Dtest=SetupTest#authorizeAgent
-        working-directory: ${{ github.workspace }}
-
       - name: Set permissions
         run: mvn clean test -Dtest=SetupTest#setAuthSettings
         working-directory: ${{ github.workspace }}
