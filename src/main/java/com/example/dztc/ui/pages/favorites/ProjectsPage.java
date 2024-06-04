@@ -8,12 +8,14 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.example.dztc.ui.Selectors;
 import com.example.dztc.ui.pages.elements.ProjectElement;
+import io.qameta.allure.Step;
 
 public class ProjectsPage extends FavoritesPage {
 
     public static final String FAVORITE_PROJECTS_URL = "/favorite/projects";
     private ElementsCollection subprojects = elements(Selectors.byClass("Subproject__container--Px"));
 
+    @Step("Open favorites page")
     public ProjectsPage open() {
         Selenide.open(FAVORITE_PROJECTS_URL);
         waitUntilFavoritesPageIsLoaded();

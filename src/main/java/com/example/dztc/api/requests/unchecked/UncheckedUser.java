@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -15,6 +16,7 @@ public class UncheckedUser extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("CREATE User request")
     public Response create(Object obj) {
         return given().spec(spec).body(obj).post(USER_ENDPOINT);
     }
@@ -30,6 +32,7 @@ public class UncheckedUser extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("DELETE User request")
     public Response delete(String id) {
         return given().spec(spec).delete(USER_ENDPOINT + "/username:" + id);
     }

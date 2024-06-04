@@ -13,21 +13,25 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.example.dztc.ui.Selectors;
 import com.example.dztc.ui.pages.elements.PageElement;
+import io.qameta.allure.Step;
 
 public class Page {
     protected SelenideElement submitButton = element(Selectors.byType("submit"));
     private SelenideElement savingWaitingMarker = element(Selectors.byId("saving"));
     private SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader"));
 
+    @Step("Click on submit button")
     public void submit() {
         submitButton.click();
         waitUntilDataIsSaved();
     }
 
+    @Step
     public void waitUntilPageIsLoaded() {
         pageWaitingMarker.shouldNotBe(visible, Duration.ofMinutes(1));
     }
 
+    @Step("Wait until data is saved")
     public void waitUntilDataIsSaved() {
         savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
     }

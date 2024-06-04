@@ -4,6 +4,7 @@ import com.example.dztc.api.models.Project;
 import com.example.dztc.api.requests.CrudInterface;
 import com.example.dztc.api.requests.Request;
 import com.example.dztc.api.requests.unchecked.UncheckedProject;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
@@ -14,6 +15,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("CREATE Project request")
     public Project create(Object obj) {
         return new UncheckedProject(spec)
             .create(obj)
@@ -25,6 +27,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("GET Project request")
     public Object get(String id) {
         return new UncheckedProject(spec)
             .get(id)
@@ -41,6 +44,7 @@ public class CheckedProject extends Request implements CrudInterface {
     }
 
     @Override
+    @Step("DELETE Project request")
     public String delete(String id) {
         return new UncheckedProject(spec)
             .delete(id)

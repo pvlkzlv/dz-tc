@@ -7,6 +7,7 @@ import com.example.dztc.api.models.User;
 import com.example.dztc.api.requests.CheckedRequests;
 import com.example.dztc.api.spec.Specifications;
 import com.example.dztc.ui.pages.LoginPage;
+import io.qameta.allure.testng.AllureTestNg;
 import org.testng.annotations.BeforeSuite;
 
 public class BaseUiTest extends BaseTest {
